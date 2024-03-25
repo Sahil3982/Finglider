@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (
-        <>
-            <div className="flex justify-around p-2 bg-blue-200">
-                <Link to="/dashboard" className='bg-gray-600 p-2 text-white'>DashBoard</Link>
-                <div className="flex gap-10">
-                    <Link to="/" className='bg-gray-600 p-2 text-white'>Home</Link>
-                    <Link to="/about" className='bg-gray-600 p-2 text-white'>About</Link>
-                    <Link to="/contact" className='bg-gray-600 p-2 text-white'>Contact</Link>
-                    <Link to="/summary" className='bg-gray-600 p-2 text-white'>Summary</Link>
+        <nav className="bg-gradient-to-r from-blue-400 to-purple-600 shadow-md">
+            <div className="container mx-auto flex justify-between items-center px-4 py-2">
+                <Link to="/dashboard" className='text-lg font-semibold text-white hover:text-gray-200 transition duration-300'>Dashboard</Link>
+                <div className="flex gap-4">
+                    <Link to="/" className='text-lg font-semibold text-white hover:text-gray-200 transition duration-300'>Home</Link>
+                    <Link to="/about" className='text-lg font-semibold text-white hover:text-gray-200 transition duration-300'>About</Link>
+                    <Link to="/contact" className='text-lg font-semibold text-white hover:text-gray-200 transition duration-300'>Contact</Link>
+                    <Link to="/summary" className='text-lg font-semibold text-white hover:text-gray-200 transition duration-300'>Summary</Link>
                 </div>
             </div>
-        </>
+        </nav>
     )
 }
 

@@ -5,6 +5,7 @@ import Contact from "./Pages/Contact"
 import Homebtn from "./Pages/Homebtn"
 import Summery from "./Pages/Summery"
 import Dashboard from "./Pages/Dashboard"
+import Footer from "./Components/Footer"
 function App() {
 
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/summary" element={<Summery />}></Route>
         </Routes>
+        <Footer/>
       </Router>
 
     </>
