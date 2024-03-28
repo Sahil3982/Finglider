@@ -19,6 +19,7 @@ const ShoppingCart = () => {
                 <Cart url={pen} name=" Pen" />
                 <Cart url={laptop} name=" Laptop" />
             </div>
+            
         </>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Cart = ({ url, name, discription }) => {
+const Cart = ({ url, name }) => {
     return (
         <>
             <div className='w-max m-2'>
