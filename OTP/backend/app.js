@@ -18,7 +18,7 @@ connect(process.env.MONGODB_URI)
 const otpSchema = new Schema({
   phoneNumber: { type: String, required: true },
   otp: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now, expires: 300 } // OTP expires after 5 minutes (300 seconds)
+  createdAt: { type: Date, default: Date.now, expires: 300 } 
 });
 const OTP = model('OTP', otpSchema);
 
@@ -56,7 +56,6 @@ app.post('/otp/verify', async (req, res) => {
   }
 });
 
-// Function to generate numeric-only OTP
 const generateNumericOTP = (length) => {
   const numericChars = '0123456789';
   let otp = '';
