@@ -3,16 +3,19 @@ import { connect, Schema, model } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { generate } from 'otp-generator';
+import twilio from 'twilio'; // Import Twilio module
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-console.log('MongoDB URI:', process.env.MONGODB_URI);
 
 // Database connection
 connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error('Failed to connect to MongoDB:', error));
+
+// Twilio client setup
+const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // Models
 const otpSchema = new Schema({
@@ -33,6 +36,14 @@ app.post('/otp/generate', async (req, res) => {
 
   try {
     await OTP.create({ phoneNumber, otp });
+    
+    // Send OTP via SMS using Twilio
+    await twilioClient.messages.create({
+      body: `Your OTP is: ${otp}`,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phoneNumber
+    });
+
     res.json({ success: true, message: 'OTP generated successfully' });
   } catch (error) {
     console.error('Failed to generate OTP:', error);
@@ -52,7 +63,7 @@ app.post('/otp/verify', async (req, res) => {
     }
   } catch (error) {
     console.error('Failed to verify OTP:', error);
-    res.sendstatus(500).json({ success: false, message: 'Failed to verify OTP' });
+    res.status(500).json({ success: false, message: 'Failed to verify OTP' });
   }
 });
 
