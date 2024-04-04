@@ -3,7 +3,7 @@ import { connect, Schema, model } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { generate } from 'otp-generator';
-import twilio from 'twilio'; // Import Twilio module
+import twilio from 'twilio';
 dotenv.config();
 
 const app = express();
@@ -41,7 +41,7 @@ app.post('/otp/generate', async (req, res) => {
     await twilioClient.messages.create({
       body: `Your OTP is: ${otp}`,
       from: process.env.TWILIO_PHONE_NUMBER,
-      to: phoneNumber
+      to: "+91" + phoneNumber // Include the country code
     });
 
     res.json({ success: true, message: 'OTP generated successfully' });
@@ -52,7 +52,7 @@ app.post('/otp/generate', async (req, res) => {
 });
 
 app.post('/otp/verify', async (req, res) => {
-  const { phoneNumber, enteredOtp } = req.body;
+  const { phoneNumber, enteredOtp } = req.body;    
 
   try {
     const otpDoc = await OTP.findOne({ phoneNumber, otp: enteredOtp });
