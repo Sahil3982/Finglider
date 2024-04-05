@@ -1,11 +1,15 @@
+// Import required modules
 import express from 'express';
 import { connect, Schema, model } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { generate } from 'otp-generator';
 import twilio from 'twilio';
+
+// Configure environment variables
 dotenv.config();
 
+// Create Express app
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,7 +21,7 @@ connect(process.env.MONGODB_URI)
 // Twilio client setup
 const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-// Models
+// Define OTP model
 const otpSchema = new Schema({
   phoneNumber: { type: String, required: true },
   otp: { type: String, required: true },
@@ -35,6 +39,7 @@ app.post('/otp/generate', async (req, res) => {
   const otp = generateNumericOTP(6); // Generate numeric-only OTP
 
   try {
+    // Save OTP to database
     await OTP.create({ phoneNumber, otp });
     
     // Send OTP via SMS using Twilio
@@ -55,6 +60,7 @@ app.post('/otp/verify', async (req, res) => {
   const { phoneNumber, enteredOtp } = req.body;    
 
   try {
+    // Verify OTP in the database
     const otpDoc = await OTP.findOne({ phoneNumber, otp: enteredOtp });
     if (otpDoc) {
       res.json({ success: true, message: 'OTP verified successfully' });
@@ -67,6 +73,7 @@ app.post('/otp/verify', async (req, res) => {
   }
 });
 
+// Utility function to generate numeric OTP
 const generateNumericOTP = (length) => {
   const numericChars = '0123456789';
   let otp = '';
@@ -76,6 +83,12 @@ const generateNumericOTP = (length) => {
   }
   return otp;
 };
+
+// Create Twilio Verify service
+twilioClient.verify.services
+  .create({ friendlyName: 'My First Verify Service' })
+  .then(service => console.log(service.sid))
+  .catch(error => console.error('Failed to create Verify service:', error));
 
 // Start the server
 app.listen(PORT, () => {
