@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-// src/App.js
+// src/PhoneVerificationPage.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
-function App() {
+function PhoneVerificationPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
+  const history = useHistory();
 
   const generateOtp = async () => {
     try {
@@ -24,6 +26,10 @@ function App() {
       const response = await axios.post('http://localhost:5000/otp/verify', { phoneNumber, enteredOtp: otp });
       console.log(response.data.message);
       setVerificationStatus(response.data.message);
+      if (response.data.message === 'OTP verified') {
+        // Redirect to another page upon successful verification
+        history.push('/another-page');
+      }
     } catch (error) {
       console.error('Failed to verify OTP:', error);
       setVerificationStatus('Failed to verify OTP');
@@ -31,8 +37,7 @@ function App() {
   };
 
   return (
-    <div className="App min-h-screen flex flex-col justify-center items-center bg-gray-100">
-      <h1 className="text-3xl mb-4">OTP Verification</h1>
+    <div>
       <input 
         type="text" 
         placeholder="Enter Phone Number" 
@@ -58,4 +63,4 @@ function App() {
   );
 }
 
-export default App;
+export default PhoneVerificationPage;

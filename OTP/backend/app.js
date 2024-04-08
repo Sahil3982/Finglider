@@ -3,8 +3,8 @@ import express from 'express';
 import { connect, Schema, model } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { generate } from 'otp-generator';
 import twilio from 'twilio';
+import jwt from 'jsonwebtoken'; 
 
 // Configure environment variables
 dotenv.config();
@@ -63,7 +63,11 @@ app.post('/otp/verify', async (req, res) => {
     // Verify OTP in the database
     const otpDoc = await OTP.findOne({ phoneNumber, otp: enteredOtp });
     if (otpDoc) {
-      res.json({ success: true, message: 'OTP verified successfully' });
+
+      // If OTP is verified, generate a JWT token with 30-day expiration
+      
+      const token = jwt.sign({ phoneNumber }, process.env.JWT_SECRET, { expiresIn: '30d' });
+      res.json({ success: true, message: 'OTP verified successfully', token });
     } else {
       res.json({ success: false, message: 'Incorrect OTP' });
     }
@@ -94,7 +98,3 @@ twilioClient.verify.services
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-
-
-
