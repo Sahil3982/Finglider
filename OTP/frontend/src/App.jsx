@@ -1,60 +1,46 @@
 /* eslint-disable no-unused-vars */
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PhoneInputPage from "./Components/PhoneInputPage";
+import OTPVerificationPage from "./Components/OTPVerificationPage";
+import Navbar from "./Components/Navbar";
+import Dashboard from "./Components/Dashboard";
 import axios from 'axios';
-
 function App() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [verificationStatus, setVerificationStatus] = useState('');
 
-  const generateOtp = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/otp/generate', { phoneNumber });
-      console.log(response.data.message);
-      setVerificationStatus(response.data.message);
-    } catch (error) {
-      console.error('Failed to generate OTP:', error);
-      setVerificationStatus('Failed to generate OTP');
-    }
-  };
-
-  const verifyOtp = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/otp/verify', { phoneNumber, enteredOtp: otp });
-      console.log(response.data.message);
-      setVerificationStatus(response.data.message);
-    } catch (error) {
-      console.error('Failed to verify OTP:', error);
-      setVerificationStatus('Failed to verify OTP');
-    }
-  };
-
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const handleNext = ()=>{
+    
+    axios.post('http://localhost:5000/getphoneno', { phoneNumber })
+    .then(response => {
+      // Handle response from the server
+      if (response.data.success) {
+        console.log("OTP Generated successful");
+        // Handle successful OTP verification, e.g., navigate to the next step
+      } else {
+        console.log("OTP Generated failed");
+        // Handle failed OTP verification, e.g., display error message
+      }
+    })
+    .catch(error => {
+      // Handle error in sending data to the server
+      console.error('Error sending data to server:', error);
+      // Display an error message or handle the error appropriately
+    });
+  }
+console.log(phoneNumber);
   return (
-    <div className="App min-h-screen flex flex-col justify-center items-center bg-gray-100">
-      <h1 className="text-3xl mb-4">OTP Verification</h1>
-      <input 
-        type="text" 
-        placeholder="Enter Phone Number" 
-        value={phoneNumber} 
-        onChange={(e) => setPhoneNumber(e.target.value)} 
-        className="rounded-md p-2 mb-2 border border-gray-300 focus:outline-none focus:border-blue-500"
-      />
-      <button onClick={generateOtp} className="bg-blue-500 text-white rounded-md px-4 py-2 mb-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-        Generate OTP
-      </button>
-      <input 
-        type="text" 
-        placeholder="Enter OTP" 
-        value={otp} 
-        onChange={(e) => setOtp(e.target.value)} 
-        className="rounded-md p-2 mb-2 border border-gray-300 focus:outline-none focus:border-blue-500"
-      />
-      <button onClick={verifyOtp} className="bg-blue-500 text-white rounded-md px-4 py-2 mb-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-        Verify OTP
-      </button>
-      <p className="text-sm text-gray-600">{verificationStatus}</p>
-    </div>
+    <Router>
+      <div className="bg-gray-100 min-h-screen">
+        <Navbar  />      
+        <Routes>
+          <Route exact path="/" element={<PhoneInputPage phoneNumber={phoneNumber}  setPhoneNumber={setPhoneNumber} handleNext={handleNext} />} />
+          <Route path="/verify-otp" element={<OTPVerificationPage phoneNumber={phoneNumber} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
