@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-// src/PhoneInputPage.js
 import React from "react";
 import { Link } from "react-router-dom";
 

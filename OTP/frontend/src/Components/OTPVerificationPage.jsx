@@ -2,20 +2,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
-function OTPVerificationPage({ phoneNumber }) { // Destructure phoneNumber from props
+function OTPVerificationPage({ phoneNumber }) { 
   const [otp, setOtp] = useState('');
   const [verificationStatus, setVerificationStatus] = useState('');
-  const navigate = useNavigate(); // Get navigate function from useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleVerify = async () => {
     try {
       const response = await axios.post('http://localhost:5000/verifyotp', { phoneNumber, enteredOtp: otp }); // Include phoneNumber in the request
       if (response.data.success) {
         setVerificationStatus('OTP Verified!');
-        // Navigate to Dashboard upon successful OTP verification
         navigate('/dashboard');
       } else {
         setVerificationStatus('Incorrect OTP');
