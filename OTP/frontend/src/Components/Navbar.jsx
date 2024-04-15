@@ -12,10 +12,9 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex items-center">
           <Link to="/home" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-          <Link to="/recipes" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Recipes</Link>
-          <Link to="/categories" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Categories</Link>
+          <Link to="/placeorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PlaceOrder</Link>
           <Link to="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</Link>
-          <Link to="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</Link>
+          <Link to="/pendingorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PendingOrder</Link>
         </div>
         <div className="md:hidden flex items-center">
           <button className="text-gray-300 hover:text-white focus:outline-none">
