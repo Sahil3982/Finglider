@@ -13,8 +13,8 @@ const Navbar = () => {
         <div className="hidden md:flex items-center">
           <Link to="/home" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
           <Link to="/placeorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PlaceOrder</Link>
-          <Link to="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</Link>
           <Link to="/pendingorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PendingOrder</Link>
+          <Link to="/profile" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</Link>
         </div>
         <div className="md:hidden flex items-center">
           <button className="text-gray-300 hover:text-white focus:outline-none">

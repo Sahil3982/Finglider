@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// src/PendingOrder.js
 import React from 'react';
 
 const PendingOrder = ({ order }) => {

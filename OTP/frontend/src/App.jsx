@@ -8,7 +8,9 @@ import Navbar from "./Components/Navbar";
 import Dashboard from "./Components/Dashboard";
 import axios from 'axios';
 import PendingOrder from "./Pages/PendingOrder";
-import Home from "./Pages/Home";
+import PlaceOrder from "./Pages/PlaceOrder";
+import Profile from "./Pages/Profile";
+
 function App() {
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -39,10 +41,10 @@ console.log(phoneNumber);
         <Routes>
           <Route exact path="/" element={<PhoneInputPage phoneNumber={phoneNumber}  setPhoneNumber={setPhoneNumber} handleNext={handleNext} />} />
           <Route path="/verify-otp" element={<OTPVerificationPage phoneNumber={phoneNumber} />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/pendingorder" element={<PendingOrder />}></Route>
-          <Route path="placeorder" element={<}
-          <Route path="/home" element={<Home />} />
+          <Route path="placeorder" element={<PlaceOrder />}></Route>
+          <Route path="/home" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
