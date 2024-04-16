@@ -6,45 +6,66 @@ import PhoneInputPage from "./Components/PhoneInputPage";
 import OTPVerificationPage from "./Components/OTPVerificationPage";
 import Navbar from "./Components/Navbar";
 import Dashboard from "./Components/Dashboard";
-import axios from 'axios';
+import axios from "axios";
 import PendingOrder from "./Pages/PendingOrder";
-import PlaceOrder from "./Pages/PlaceOrder";
+import NewOrder from "./Pages/NewOrder";
 import Profile from "./Pages/Profile";
-
+import data from "./data";
+import DeliverOrder from "./Pages/DeliverOrder";
 function App() {
+  const [orderdata, setOrderdata] = useState(data);
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  const handleNext = ()=>{
-    
-    axios.post('http://localhost:5000/getphoneno', { phoneNumber })
-    .then(response => {
-      // Handle response from the server
-      if (response.data.success) {
-        console.log("OTP Generated successful");
-        // Handle successful OTP verification, e.g., navigate to the next step
-      } else {
-        console.log("OTP Generated failed");
-        // Handle failed OTP verification, e.g., display error message
-      }
-    })
-    .catch(error => {
-      // Handle error in sending data to the server
-      console.error('Error sending data to server:', error);
-      // Display an error message or handle the error appropriately
-    });
-  }
-console.log(phoneNumber);
+  const handleNext = () => {
+    axios
+      .post("http://localhost:5000/getphoneno", { phoneNumber })
+      .then((response) => {
+        if (response.data.success) {
+          console.log("OTP Generated successful");
+        } else {
+          console.log("OTP Generated failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending data to server:", error);
+      });
+  };
+
   return (
     <Router>
       <div className="bg-gray-100 min-h-screen">
-        <Navbar  />      
+        <Navbar />
         <Routes>
-          <Route exact path="/" element={<PhoneInputPage phoneNumber={phoneNumber}  setPhoneNumber={setPhoneNumber} handleNext={handleNext} />} />
-          <Route path="/verify-otp" element={<OTPVerificationPage phoneNumber={phoneNumber} />} />
-          <Route path="/pendingorder" element={<PendingOrder />}></Route>
-          <Route path="placeorder" element={<PlaceOrder />}></Route>
-          <Route path="/home" element={<Dashboard />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <PhoneInputPage
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+                handleNext={handleNext}
+              />
+            }
+          />
+          <Route
+            path="/verify-otp"
+            element={<OTPVerificationPage phoneNumber={phoneNumber} />}
+          />
+          <Route
+            path="/pendingorder"
+            element={<PendingOrder orderdata={orderdata} />}
+          ></Route>
+          <Route
+            path="/neworder"
+            element={<NewOrder orderdata={orderdata} />}
+          ></Route>
+          <Route
+            path="/deliverorder"
+            element={<DeliverOrder orderdata={orderdata} />}
+          ></Route>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<PhoneInputPage />} />
         </Routes>
       </div>
     </Router>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function PhoneInputPage({ handleNext , setPhoneNumber ,phoneNumber}) {
   return (
-    <div className="max-w-md mx-auto px-4 py-8 flex flex-col items-center rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto px-4 py-8 mt-16 flex flex-col items-center rounded-lg shadow-lg">
     <h1 className="text-3xl mb-4">Enter Phone Number</h1>
     <form className="flex flex-col p-6">
       <input

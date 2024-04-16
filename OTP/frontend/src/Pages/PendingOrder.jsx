@@ -1,16 +1,36 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React from 'react';
+/* eslint-disable no-undef */
+import React from "react";
 
-const PendingOrder = ({ order }) => {
+const PendingOrder = ({ orderdata }) => {
+ 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-lg p-6 mb-4">
+    <>
       <h2 className="text-xl font-bold mb-4">Pending Order</h2>
-      <p><strong>Recipe:</strong> {order.recipe}</p>
-      <p><strong>Quantity:</strong> {order.quantity}</p>
-      <p><strong>Message:</strong> {order.message}</p>
-      <p><strong>Status:</strong> Pending</p>
-    </div>
+
+      {orderdata.map(({ fullname, id, address }) => (
+        <div
+          key={id}
+          className="bg-white rounded-lg overflow-hidden shadow-lg p-5 mb-4 mx-4"
+        >
+          <span className="text-2xl">{fullname}</span>
+          <br />
+          <span>{address}</span>
+          <button
+            className="bg-blue-500 p-2 m-2 ml-20 rounded-lg overflow-hidden shadow-lg"
+            onClick={() => handleAccept(id)}
+          >
+            Accepted
+          </button>
+         
+          <button
+            className="bg-red-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
+            onClick={() => handleReject(id)} 
+          >
+            Reject
+          </button>
+        </div>
+      ))}
+    </>
   );
 };
 

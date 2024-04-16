@@ -27,7 +27,7 @@ function OTPVerificationPage({ phoneNumber }) {
 
   return (
     <div className="max-w-md mx-auto mt-16 p-8 bg-gray-100 rounded-lg shadow-lg">
-    <h1 className="text-3xl mb-4 text-center">Verify OTP</h1>
+    <h1 className="text-3xl mb-4 text-center">Enter OTP Here </h1>
     <div className="flex flex-col items-center">
       <input 
         type="text" 

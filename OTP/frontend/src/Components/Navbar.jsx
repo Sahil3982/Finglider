@@ -11,8 +11,8 @@ const Navbar = () => {
           <Link to="/" className="text-white text-red-500 font-bold text-xl">FoodieHub</Link>
         </div>
         <div className="hidden md:flex items-center">
-          <Link to="/home" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-          <Link to="/placeorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PlaceOrder</Link>
+          <Link to="/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">DashBoard</Link>
+          <Link to="/neworder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">NewOrder</Link>
           <Link to="/pendingorder" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PendingOrder</Link>
           <Link to="/profile" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</Link>
         </div>

@@ -92,7 +92,7 @@ app.use((err, req, res, next) => {
 
 // Utility function to generate numeric OTP
 const generateNumericOTP = (length) => {
-  const numericChars = "0123456789";
+  const numericChars = "0123456789"; 
   let otp = "";
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * numericChars.length);
