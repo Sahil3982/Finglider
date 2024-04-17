@@ -14,7 +14,6 @@ import data from "./data";
 import DeliverOrder from "./Pages/DeliverOrder";
 function App() {
   const [orderdata, setOrderdata] = useState(data);
-
   const [phoneNumber, setPhoneNumber] = useState("");
   const handleNext = () => {
     axios
@@ -63,7 +62,11 @@ function App() {
             path="/deliverorder"
             element={<DeliverOrder orderdata={orderdata} />}
           ></Route>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard orderdata={orderdata} />}
+          ></Route>
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<PhoneInputPage />} />
         </Routes>
