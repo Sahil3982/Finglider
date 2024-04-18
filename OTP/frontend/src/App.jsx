@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // src/App.js
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PhoneInputPage from "./Components/PhoneInputPage";
 import OTPVerificationPage from "./Components/OTPVerificationPage";
@@ -13,6 +14,8 @@ import Profile from "./Pages/Profile";
 import data from "./data";
 import DeliverOrder from "./Pages/DeliverOrder";
 function App() {
+  const [newOrders, setNewOrders] = useState(data.filter(order => order.status === "Processing"));
+  const [pendingOrders, setPendingOrders] = useState([]);
   const [orderdata, setOrderdata] = useState(data);
   const [phoneNumber, setPhoneNumber] = useState("");
   const handleNext = () => {
@@ -29,6 +32,23 @@ function App() {
         console.error("Error sending data to server:", error);
       });
   };
+
+
+  // const [acceptedOrders, setAcceptedOrders] = useState([]);
+
+    const handleAccept = (orderId) => {
+    // Find the accepted order
+    const acceptedOrder = newOrders.find((order) => order.id === orderId);
+    // Move the order to pending orders
+    setPendingOrders(prevPendingOrders => [...prevPendingOrders, acceptedOrder]);
+    // Remove the order from new orders
+    setNewOrders(prevNewOrders => prevNewOrders.filter(order => order.id !== orderId));
+  };
+  useEffect(() => {
+  }, [newOrders]);
+
+console.log(newOrders);
+// console.log(orderdata);
 
   return (
     <Router>
@@ -52,11 +72,11 @@ function App() {
           />
           <Route
             path="/pendingorder"
-            element={<PendingOrder orderdata={orderdata} />}
+            element={<PendingOrder newOrders={newOrders} />}
           ></Route>
           <Route
             path="/neworder"
-            element={<NewOrder orderdata={orderdata} />}
+            element={<NewOrder orderdata={orderdata} onAccept={handleAccept} />}
           ></Route>
           <Route
             path="/deliverorder"

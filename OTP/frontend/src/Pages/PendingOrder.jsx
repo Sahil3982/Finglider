@@ -3,16 +3,18 @@
 /* eslint-disable no-undef */
 import React from "react";
 
-const PendingOrder = ({ orderdata }) => {
+const PendingOrder = ({ newOrders }) => {
  
+
+ console.log(newOrders);
   return (
     <>
       <h2 className="text-xl m-2 font-bold mb-4">Pending Order</h2>
 
      
-      {orderdata.map(
+      { newOrders.map(
         ({ customerName, id, status, items }) =>
-          status == "Pending" && (
+          status == "inprogress" && (
             
             <div
               key={id}

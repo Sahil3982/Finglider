@@ -11,7 +11,7 @@ const Dashboard = ({ orderdata }) => {
     if (order.status === "Processing") {
       countProcessing++;
     } else if (order.status === "Delivered") countDelivered++;
-    else if (order.status === "Pending") countPending++;
+    else if (order.status === "inprogress") countPending++;
   });
   console.log(countProcessing, countDelivered, countPending);
   return (
@@ -26,7 +26,7 @@ const Dashboard = ({ orderdata }) => {
                 alt="Category 2"
                 className="w-full h-32 object-cover"
               />
-              <div className="p-4 flex items-center justify-around">
+              <div className="p-4 flex items-center justify-between">
                 <h2 className="text-xl font-semibold mb-2">New Orders</h2>
                 <h1 className="text font-semibold mb-2 bg-blue-500 p-2  px-3 rounded-full">
                   {countProcessing}
@@ -42,7 +42,7 @@ const Dashboard = ({ orderdata }) => {
                 alt="Category 1"
                 className="w-full h-32 object-cover"
               />
-             <div className="p-4 flex items-center justify-around">
+             <div className="p-4 flex items-center justify-between">
                 <h2 className="text-xl font-semibold mb-2">Pending Orders</h2>
                 <h1 className="text font-semibold mb-2 bg-blue-500 p-2  px-3 rounded-full">
                   {countPending}
@@ -57,7 +57,7 @@ const Dashboard = ({ orderdata }) => {
                 alt="Category 2"
                 className="w-full h-32 object-cover"
               />
-              <div className="p-4 flex items-center justify-around">
+              <div className="p-4 flex items-center justify-between">
                 <h2 className="text-xl font-semibold mb-2">Deliver Orders</h2>
                 <h1 className="text font-semibold mb-2 bg-blue-500 p-2 px-3 rounded-full">
                   {countDelivered}
