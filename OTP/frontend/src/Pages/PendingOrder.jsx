@@ -29,9 +29,7 @@ const PendingOrder = ({ newOrders }) => {
                 <span>Status: {status}</span>
               </div>
               <div> 
-                {/* <button className="bg-green-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg">
-                  Confirmed
-                </button> */}
+                
                 <button className="bg-gray-500 c p-2 m-2 rounded-lg overflow-hidden shadow-lg">
                   Ready for Delivery
                 </button>

@@ -45,6 +45,9 @@ function App() {
     // Remove the order from new orders
     setNewOrders(prevNewOrders => prevNewOrders.filter(order => order.id !== orderId));
   };
+
+
+  
   useEffect(() => {
   }, [newOrders]);
 

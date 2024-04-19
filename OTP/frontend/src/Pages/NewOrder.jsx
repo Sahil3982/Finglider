@@ -10,27 +10,19 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const [customReason, setCustomReason] = useState('');
 
   const handleClosePopup = () => {
-    // Handle closing the popup and process the selected and custom reasons
-    // For example:
     console.log("Selected Reason:", selectedReason);
     console.log("Custom Reason:", customReason);
     setShowPopup(false);
   };
 
   const handleReject = (id) => {
-    // Set the rejected order ID and show the popup
     setRejectedOrderId(id);
     setShowPopup(true);
   };
 
-  // const handleClosePopup = () => {
-  //   // Hide the popup
-  //   setShowPopup(false);
-  //   // Call the onDelete function with the ID of the rejected order
-  // };
+
 
   const handleAccept = (id) => {
-    // Call the onAccept function with the ID of the accepted order
     onAccept(id);
   };
 
@@ -61,7 +53,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
               <div>
                 <button
                   className="bg-green-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                  onClick={() => handleAccept(id)}
+                  onClick={() => handleAccept(id)} 
                 >
                   Accept
                 </button>
@@ -85,6 +77,23 @@ const NewOrder = ({ orderdata, onAccept }) => {
             checked={selectedReason === "Not Available"}
             onChange={(e) => setSelectedReason(e.target.value)}
           /> Not Available
+          <br />
+          <input 
+            type="radio" 
+            name="reason" 
+            value="Delivery issues" 
+            checked={selectedReason === "Delivery issues"}
+            onChange={(e) => setSelectedReason(e.target.value)}
+            
+          /> Delivery issues
+          <br />
+          <input 
+            type="radio" 
+            name="reason" 
+            value="Delivery issues" 
+            checked={selectedReason === "Delivery issues"}
+            onChange={(e) => setSelectedReason(e.target.value)}
+          /> Delivery issues
           <br />
           <input 
             type="radio" 
