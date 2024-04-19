@@ -13,6 +13,7 @@ import NewOrder from "./Pages/NewOrder";
 import Profile from "./Pages/Profile";
 import data from "./data";
 import DeliverOrder from "./Pages/DeliverOrder";
+import RejectedOrder from "./Pages/RejectedOrder";
 function App() {
   const [newOrders, setNewOrders] = useState(data.filter(order => order.status === "Processing"));
   const [pendingOrders, setPendingOrders] = useState([]);
@@ -81,6 +82,10 @@ console.log(newOrders);
           <Route
             path="/deliverorder"
             element={<DeliverOrder orderdata={orderdata} />}
+          ></Route>
+          <Route
+            path="/rejectedorder"
+            element={<RejectedOrder orderdata={orderdata} />}
           ></Route>
           <Route
             path="/dashboard"

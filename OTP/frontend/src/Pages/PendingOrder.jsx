@@ -33,7 +33,7 @@ const PendingOrder = ({ newOrders }) => {
                   Confirmed
                 </button> */}
                 <button className="bg-gray-500 c p-2 m-2 rounded-lg overflow-hidden shadow-lg">
-                  inProgress...
+                  Ready for Delivery
                 </button>
               </div>
             </div>

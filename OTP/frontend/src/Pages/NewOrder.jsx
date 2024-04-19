@@ -5,6 +5,17 @@ import React, { useState } from "react";
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [rejectedOrderId, setRejectedOrderId] = useState(null);
+  // const [showPopup, setShowPopup] = useState(true);
+  const [selectedReason, setSelectedReason] = useState('');
+  const [customReason, setCustomReason] = useState('');
+
+  const handleClosePopup = () => {
+    // Handle closing the popup and process the selected and custom reasons
+    // For example:
+    console.log("Selected Reason:", selectedReason);
+    console.log("Custom Reason:", customReason);
+    setShowPopup(false);
+  };
 
   const handleReject = (id) => {
     // Set the rejected order ID and show the popup
@@ -12,11 +23,11 @@ const NewOrder = ({ orderdata, onAccept }) => {
     setShowPopup(true);
   };
 
-  const handleClosePopup = () => {
-    // Hide the popup
-    setShowPopup(false);
-    // Call the onDelete function with the ID of the rejected order
-  };
+  // const handleClosePopup = () => {
+  //   // Hide the popup
+  //   setShowPopup(false);
+  //   // Call the onDelete function with the ID of the rejected order
+  // };
 
   const handleAccept = (id) => {
     // Call the onAccept function with the ID of the accepted order
@@ -64,33 +75,63 @@ const NewOrder = ({ orderdata, onAccept }) => {
             </div>
           )
       )}
-
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded">
-            <textarea className="w-full text-red-400 border">
-              *Please a give reason
-            </textarea>
-            <p className="text-xl">
-              Are you sure you want to reject this order?
-            </p>
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-green-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
-                onClick={handleClosePopup}
-              >
-                Yes
-              </button>
-              <button
-                className="bg-red-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
-                onClick={() => setShowPopup(false)}
-              >
-                No
-              </button>
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white p-8 rounded">
+          <input 
+            type="radio" 
+            name="reason" 
+            value="Not Available" 
+            checked={selectedReason === "Not Available"}
+            onChange={(e) => setSelectedReason(e.target.value)}
+          /> Not Available
+          <br />
+          <input 
+            type="radio" 
+            name="reason" 
+            value="Delivery issues" 
+            checked={selectedReason === "Delivery issues"}
+            onChange={(e) => setSelectedReason(e.target.value)}
+          /> Delivery issues
+          <br />
+          <input 
+            type="radio" 
+            name="reason" 
+            value="Other" 
+            checked={selectedReason === "Other"}
+            onChange={(e) => setSelectedReason(e.target.value)}
+          /> Other
+          {selectedReason === "Other" && (
+            <div>
+              <textarea
+                className="w-full text-red-400 border"
+                placeholder="Please give a reason"
+                value={customReason}
+                onChange={(e) => setCustomReason(e.target.value)}
+              ></textarea>
             </div>
+          )}
+          <p className="text-xl">
+            Are you sure you want to reject this order?
+          </p>
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-green-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
+              onClick={handleClosePopup}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-red-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
+              onClick={() => setShowPopup(false)}
+            >
+              No
+            </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
+
     </>
   );
 };
