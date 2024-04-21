@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const NewOrder = ({ orderdata, onAccept }) => {
+const NewOrder = ({ orderdata, onAccept ,onDetails }) => {
+
+  console.log(onAccept);
   const [showPopup, setShowPopup] = useState(false);
   const [rejectedOrderId, setRejectedOrderId] = useState(null);
   // const [showPopup, setShowPopup] = useState(true);
@@ -25,6 +28,12 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const handleAccept = (id) => {
     onAccept(id);
   };
+const  handleDetails = (id)=>{
+      onDetails(id);
+      console.log(id);
+
+}
+ 
 
   return (
     <>
@@ -63,6 +72,15 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 >
                   Reject
                 </button>
+                
+                <Link to='/viewdetails'>
+                <button
+                  className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                  onClick={()=> handleDetails(id)}
+                >
+                  View Details 
+                </button>
+                </Link>
               </div>
             </div>
           )
@@ -93,7 +111,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
             value="Delivery issues" 
             checked={selectedReason === "Delivery issues"}
             onChange={(e) => setSelectedReason(e.target.value)}
-          /> Delivery issues
+          /> Backend issues
           <br />
           <input 
             type="radio" 
@@ -101,7 +119,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
             value="Delivery issues" 
             checked={selectedReason === "Delivery issues"}
             onChange={(e) => setSelectedReason(e.target.value)}
-          /> Delivery issues
+          /> Material not avilable
           <br />
           <input 
             type="radio" 

@@ -16,8 +16,8 @@ const Dashboard = ({ orderdata }) => {
   console.log(countProcessing, countDelivered, countPending);
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl mb-4">Dashboard</h1>
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        {/* <h1 className="text-3xl mb-4">Dashboard</h1> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link to="/newOrder">
             <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -73,7 +73,7 @@ const Dashboard = ({ orderdata }) => {
                 className="w-full h-32 object-cover"
               />
               <div className="p-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold mb-2">Deliver Orders</h2>
+                <h2 className="text-xl font-semibold mb-2">Rejected Orders</h2>
                 <h1 className="text font-semibold mb-2 bg-blue-500 p-2 px-3 rounded-full">
                   {countDelivered}
                 </h1>

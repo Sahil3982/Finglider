@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // src/App.js
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PhoneInputPage from "./Components/PhoneInputPage";
 import OTPVerificationPage from "./Components/OTPVerificationPage";
@@ -14,8 +14,11 @@ import Profile from "./Pages/Profile";
 import data from "./data";
 import DeliverOrder from "./Pages/DeliverOrder";
 import RejectedOrder from "./Pages/RejectedOrder";
+import ViewDetails from "./Pages/ViewDetails";
 function App() {
-  const [newOrders, setNewOrders] = useState(data.filter(order => order.status === "Processing"));
+  const [newOrders, setNewOrders] = useState(
+    data.filter((order) => order.status === "Processing")
+  );
   const [pendingOrders, setPendingOrders] = useState([]);
   const [orderdata, setOrderdata] = useState(data);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -34,25 +37,27 @@ function App() {
       });
   };
 
-
   // const [acceptedOrders, setAcceptedOrders] = useState([]);
 
-    const handleAccept = (orderId) => {
+  const handleAccept = (orderId) => {
     // Find the accepted order
     const acceptedOrder = newOrders.find((order) => order.id === orderId);
-    // Move the order to pending orders
-    setPendingOrders(prevPendingOrders => [...prevPendingOrders, acceptedOrder]);
-    // Remove the order from new orders
-    setNewOrders(prevNewOrders => prevNewOrders.filter(order => order.id !== orderId));
+  
+   
+  
   };
 
+  useEffect(() => {}, [newOrders]);
 
+  // console.log(newOrders);
+  // console.log(orderdata);
+
+  const handleDetails = (id)=>{
+    
+console.log(" myid ",id);
+        return id
+  }
   
-  useEffect(() => {
-  }, [newOrders]);
-
-console.log(newOrders);
-// console.log(orderdata);
 
   return (
     <Router>
@@ -80,7 +85,7 @@ console.log(newOrders);
           ></Route>
           <Route
             path="/neworder"
-            element={<NewOrder orderdata={orderdata} onAccept={handleAccept} />}
+            element={<NewOrder orderdata={orderdata} onAccept={handleAccept} onDetails={handleDetails} />}
           ></Route>
           <Route
             path="/deliverorder"
@@ -97,6 +102,7 @@ console.log(newOrders);
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<PhoneInputPage />} />
+          <Route path="/viewdetails" element={<ViewDetails  orderdata={orderdata}  handleDetails={handleDetails} />} />
         </Routes>
       </div>
     </Router>
