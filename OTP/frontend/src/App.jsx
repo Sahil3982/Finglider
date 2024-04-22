@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-// src/App.js
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PhoneInputPage from "./Components/PhoneInputPage";
@@ -15,13 +13,14 @@ import data from "./data";
 import DeliverOrder from "./Pages/DeliverOrder";
 import RejectedOrder from "./Pages/RejectedOrder";
 import ViewDetails from "./Pages/ViewDetails";
+
 function App() {
   const [newOrders, setNewOrders] = useState(
     data.filter((order) => order.status === "Processing")
   );
-  const [pendingOrders, setPendingOrders] = useState([]);
   const [orderdata, setOrderdata] = useState(data);
   const [phoneNumber, setPhoneNumber] = useState("");
+
   const handleNext = () => {
     axios
       .post("http://localhost:5000/getphoneno", { phoneNumber })
@@ -37,27 +36,15 @@ function App() {
       });
   };
 
-  // const [acceptedOrders, setAcceptedOrders] = useState([]);
-
   const handleAccept = (orderId) => {
-    // Find the accepted order
+    // Handle accepting order logic here
     const acceptedOrder = newOrders.find((order) => order.id === orderId);
-  
-   
-  
   };
 
-  useEffect(() => {}, [newOrders]);
-
-  // console.log(newOrders);
-  // console.log(orderdata);
-
-  const handleDetails = (id)=>{
-    
-console.log(" myid ",id);
-        return id
-  }
-  
+  const handleDetails = (id) => {
+    console.log("Selected order ID:", id);
+    // You can perform actions based on the selected order ID here
+  };
 
   return (
     <Router>
@@ -82,28 +69,35 @@ console.log(" myid ",id);
           <Route
             path="/pendingorder"
             element={<PendingOrder newOrders={newOrders} />}
-          ></Route>
-          <Route
+          />
+          {/* <Route
             path="/neworder"
-            element={<NewOrder orderdata={orderdata} onAccept={handleAccept} onDetails={handleDetails} />}
-          ></Route>
+            element={
+              <NewOrder
+                orderdata={orderdata}
+                onAccept={handleAccept}
+                onDetails={handleDetails}
+              />
+            }
+          /> */}
           <Route
             path="/deliverorder"
             element={<DeliverOrder orderdata={orderdata} />}
-          ></Route>
+          />
           <Route
             path="/rejectedorder"
             element={<RejectedOrder orderdata={orderdata} />}
-          ></Route>
+          />
           <Route
             path="/dashboard"
             element={<Dashboard orderdata={orderdata} />}
-          ></Route>
-
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<PhoneInputPage />} />
-          <Route path="/viewdetails" element={<ViewDetails  orderdata={orderdata}  handleDetails={handleDetails} />} />
-        </Routes>
+          <Route path="/neworder" element={<NewOrder orderdata={orderdata} />} />
+          {/* Pass the orderdata to ViewDetails component */}
+          <Route path="/viewdetails/:orderId" element={<ViewDetails orderdata={orderdata} />} />
+                 </Routes>
       </div>
     </Router>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-
+import { Link } from "react-router-dom";
 const DeliverOrder = ({ orderdata }) => {
   return (
     <>
@@ -33,6 +33,11 @@ const DeliverOrder = ({ orderdata }) => {
                 <button className="bg-red-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg">
                  Out of Delivery
                 </button>
+                <Link to={`/viewdetails/${id}`}>
+                  <button className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
+                    View Details
+                  </button>
+                </Link>
               </div>
             </div>
           )
