@@ -94,10 +94,16 @@ function App() {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<PhoneInputPage />} />
-          <Route path="/neworder" element={<NewOrder orderdata={orderdata} />} />
+          <Route
+            path="/neworder"
+            element={<NewOrder orderdata={orderdata} />}
+          />
           {/* Pass the orderdata to ViewDetails component */}
-          <Route path="/viewdetails/:orderId" element={<ViewDetails orderdata={orderdata} />} />
-                 </Routes>
+          <Route
+            path="/viewdetails/:orderId"
+            element={<ViewDetails orderdata={orderdata} />}
+          />
+        </Routes>
       </div>
     </Router>
   );

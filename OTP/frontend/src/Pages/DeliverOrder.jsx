@@ -2,10 +2,17 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../Components/SearchBar";
 const DeliverOrder = ({ orderdata }) => {
   return (
     <>
-      <h2 className="text-xl m-2 font-bold mb-4">Deliver Order</h2>
+     <div className="flex justify-center justify-between">
+        <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
+        <Link to="/pendingorder" className="text-xl m-2 font-bold mb-4">
+          Back
+        </Link>
+        </div>
+        <SearchBar />
 
       {orderdata.map(
         ({ customerName, id, status, items ,address,OrderID , date,TotalAmount}) =>

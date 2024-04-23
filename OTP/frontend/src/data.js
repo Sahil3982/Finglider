@@ -7,7 +7,7 @@ const orders = [
     status: "inprogress",
     OrderID: '4636KJKJG348',
     TotalAmount : 3482,
-    date: '31/3/2024'
+    date: '31/3/2024 3:40 PM'
   },
   {
     id: crypto.randomUUID(),
@@ -17,17 +17,17 @@ const orders = [
     status: "Delivered",
     OrderID: 'IOP628972348',
     TotalAmount : 2100,
-    date: '29/2/2024'
+    date: '29/2/2024 2:30 PM'
   },
   {
     id: crypto.randomUUID(),
     customerName: "Alice Johnson",
     address: "789 Oak St, Nowheretown, USA",
     items: "Product D",
-    status: "inprogress",
+    status: "Processing",
     OrderID: '4BEF8972348',
     TotalAmount : 4000,
-    date: '27/2/2024'
+    date: '27/2/2024 4:30 PM'
   },
   {
     id: crypto.randomUUID(),
@@ -37,7 +37,7 @@ const orders = [
     status: "Processing",
     OrderID: '46EBRS972348',
     TotalAmount : 850,
-    date: '19/2/2024'
+    date: '19/2/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),
@@ -47,7 +47,7 @@ const orders = [
     status: "Delivered",
     OrderID: 'XYZ28972348',
     TotalAmount : 2300,
-    date: '6/4/2024'
+    date: '6/4/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),
@@ -57,7 +57,7 @@ const orders = [
     status: "Delivered",
     OrderID: '4UY28972348',
     TotalAmount : 1300,
-    date: '6/2/2024'
+    date: '6/2/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),
@@ -67,7 +67,7 @@ const orders = [
     status: "Delivered",
     OrderID: '4636289HF48',
     TotalAmount : 2300,
-    date: '8/2/2024'
+    date: '8/2/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),
@@ -77,7 +77,7 @@ const orders = [
     status: "Processing",
     OrderID: '463628XYZ',
     TotalAmount : 900,
-    date: '2/2/2024'
+    date: '2/2/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),
@@ -87,7 +87,7 @@ const orders = [
     status: "Processing",
     OrderID: '463DSA972348',
     TotalAmount : 5100,
-    date: '1/2/2024'
+    date: '1/2/2024 3:00 AM'
   },
   {
     id: crypto.randomUUID(),

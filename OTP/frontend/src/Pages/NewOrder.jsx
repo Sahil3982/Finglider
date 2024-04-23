@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../Components/SearchBar";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -25,8 +27,12 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
   return (
     <>
-      <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
-
+      <div className="flex justify-center justify-between">
+        <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
+        <Link to="/dashboard" className="text-xl m-2 font-bold mb-4">Back</Link>
+      </div>
+      
+      <SearchBar />
       {orderdata.map(
         ({ customerName, id, status, items, date, OrderID }) =>
           status === "Processing" && (
@@ -45,8 +51,27 @@ const NewOrder = ({ orderdata, onAccept }) => {
                   <span className="font-bold">DATE : {date} </span>
                 </div>
                 <span>Status: {status}</span>
+                <div className="">
+                <button
+                  className="bg-green-500 p-2 m-2 px-2 rounded-lg overflow-hidden shadow-lg"
+                  onClick={() => handleAccept(id)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="bg-red-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                  onClick={() => handleReject(id)}
+                >
+                  Reject
+                </button>
+                <Link to={`/viewdetails/${id}`}>
+                  <button onMouseOver={ ()=> console.log("Hy")} className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
+                    View 
+                  </button>
+                </Link>
               </div>
-              <div>
+              </div>
+              {/* <div>
                 <button
                   className="bg-green-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
                   onClick={() => handleAccept(id)}
@@ -59,17 +84,16 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 >
                   Reject
                 </button>
-                {/* Pass id to ViewDetails component */}
                 <Link to={`/viewdetails/${id}`}>
-                  <button className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
-                    View Details
+                  <button onMouseOver={ ()=> console.log("Hy")} className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
+                    View 
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           )
       )}
-      
+
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded">
