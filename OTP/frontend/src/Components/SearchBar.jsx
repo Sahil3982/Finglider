@@ -14,7 +14,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex justify-center items-center mb-2">
+    <div className="flex justify-center items-center my-2">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -23,9 +23,9 @@ const SearchBar = ({ onSearch }) => {
           onChange={handleChange}
           className="p-2 border border-gray-300  rounded-lg mr-2 "
         />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+        {/* <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg">
           Search
-        </button>
+        </button> */}
       </form>
     </div>
   );

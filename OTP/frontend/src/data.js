@@ -23,7 +23,7 @@ const orders = [
     id: crypto.randomUUID(),
     customerName: "Alice Johnson",
     address: "789 Oak St, Nowheretown, USA",
-    items: "Product D",
+    items: ["A","B","B"],
     status: "Processing",
     OrderID: '4BEF8972348',
     TotalAmount : 4000,

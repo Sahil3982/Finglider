@@ -1,14 +1,20 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [rejectedOrderId, setRejectedOrderId] = useState(null);
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
+  const [expandedIndex, setExpandedIndex] = useState(null); // Moved the state for accordion outside Accordion component
+
+  const toggleAccordion = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
 
   const handleClosePopup = () => {
     console.log("Selected Reason:", selectedReason);
@@ -27,69 +33,91 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
   return (
     <>
-      <div className="flex justify-center justify-between">
+      <div className="flex justify-center justify-between align-center">
         <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
-        <Link to="/dashboard" className="text-xl m-2 font-bold mb-4">Back</Link>
+        <SearchBar />
+
+        <Link
+          to="/dashboard"
+          className="text-xl m-2 font-bold mb-4"
+          value="Back"
+        >
+          <FontAwesomeIcon
+            icon={faBackward}
+            size="lg"
+            style={{ color: "#000000" }}
+          />
+        </Link>
       </div>
-      
-      <SearchBar />
+
       {orderdata.map(
-        ({ customerName, id, status, items, date, OrderID }) =>
+        (
+          { customerName, id, status, items, date, OrderID, address },
+          index // Added index as the second parameter
+        ) =>
           status === "Processing" && (
             <div
               key={id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg p-5 mb-4 mx-4 flex items-center justify-between"
+              className="bg-white rounded-lg overflow-hidden shadow-lg px-3 py-1 mb-2 mx-4 flex  items-center justify-between"
             >
-              <div>
-                <span className="text-2xl">{customerName}</span>
+              <div
+                onClick={() => toggleAccordion(index)} // Added onClick event to toggleAccordion
+                className="cursor-pointer "
+                aria-placeholder=" kmvknvnekn"
+              >
+               <FontAwesomeIcon
+                      icon={faUser}
+                      style={{ color: "#000000" }}
+                      className="size-4 pr-2"
+                    />
+                    <span className="font-bold">{customerName}</span>
+                    <br />
+                <span className="font-bold">ORDER ID: </span>
+                {OrderID}
                 <br />
-                <div>
-                  <span>{items} </span>
-                  <br />
-                  <span>ORDERID : {OrderID}</span>
-                  <br />
-                  <span className="font-bold">DATE : {date} </span>
-                </div>
-                <span>Status: {status}</span>
+                <span className="font-bold">DATE : </span>
+                {date}
+                <br />
+                <span className="font-bold text">STATUS :</span>{" "}
+                <span className="text-yellow-500">{status}</span>
+                <br />
+                {/* Content to be displayed when accordion is expanded */}
+                {expandedIndex === index && (
+                  <div>
+                   
+                    <span className="font-bold"> Products : </span>
+                    {items}
+                    <br />
+                    <span className="font-bold"> Delivery Address :</span>{" "}
+                    {address}
+                    <br />
+                    <span className="font-bold"> Total :</span>
+                    {status}
+                  </div>
+                )}
                 <div className="">
-                <button
-                  className="bg-green-500 p-2 m-2 px-2 rounded-lg overflow-hidden shadow-lg"
-                  onClick={() => handleAccept(id)}
-                >
-                  Accept
-                </button>
-                <button
-                  className="bg-red-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                  onClick={() => handleReject(id)}
-                >
-                  Reject
-                </button>
-                <Link to={`/viewdetails/${id}`}>
-                  <button onMouseOver={ ()=> console.log("Hy")} className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
-                    View 
+                  <button
+                    className="bg-green-600  p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                    onClick={() => handleAccept(id)}
+                  >
+                    Accept
                   </button>
-                </Link>
-              </div>
-              </div>
-              {/* <div>
-                <button
-                  className="bg-green-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                  onClick={() => handleAccept(id)}
-                >
-                  Accept
-                </button>
-                <button
-                  className="bg-red-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                  onClick={() => handleReject(id)}
-                >
-                  Reject
-                </button>
-                <Link to={`/viewdetails/${id}`}>
-                  <button onMouseOver={ ()=> console.log("Hy")} className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg">
-                    View 
+                  <button
+                    className="bg-red-600 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                    onClick={() => handleReject(id)}
+                  >
+                    Reject
                   </button>
-                </Link>
-              </div> */}
+                  <Link to={`/viewdetails/${id}`}>
+                    {/* <button
+                      onMouseOver={() => console.log("Hover")}
+                      className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                    >
+                      View
+                    </button> */}
+                  </Link>
+                </div>
+              </div>
             </div>
           )
       )}
@@ -97,72 +125,40 @@ const NewOrder = ({ orderdata, onAccept }) => {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded">
-            <input
-              type="radio"
-              name="reason"
-              value="Not Available"
-              checked={selectedReason === "Not Available"}
+            {/* Radio buttons and other content for the rejection popup */}
+            <select
+              className="w-full p-2 border rounded-md"
+              value={selectedReason}
               onChange={(e) => setSelectedReason(e.target.value)}
-            />{" "}
-            Not Available
-            <br />
-            <input
-              type="radio"
-              name="reason"
-              value="Delivery issues"
-              checked={selectedReason === "Delivery issues"}
-              onChange={(e) => setSelectedReason(e.target.value)}
-            />{" "}
-            Delivery issues
-            <br />
-            <input
-              type="radio"
-              name="reason"
-              value="Backend issues"
-              checked={selectedReason === "Backend issues"}
-              onChange={(e) => setSelectedReason(e.target.value)}
-            />{" "}
-            Backend issues
-            <br />
-            <input
-              type="radio"
-              name="reason"
-              value="Material not available"
-              checked={selectedReason === "Material not available"}
-              onChange={(e) => setSelectedReason(e.target.value)}
-            />{" "}
-            Material not available
-            <br />
-            <input
-              type="radio"
-              name="reason"
-              value="Other"
-              checked={selectedReason === "Other"}
-              onChange={(e) => setSelectedReason(e.target.value)}
-            />{" "}
-            Other
+            >
+              <option value="Not Available">Not Available</option>
+              <option value="Delivery issues">Delivery issues</option>
+              <option value="Backend issues">Backend issues</option>
+              <option value="Material not available">
+                Material not available
+              </option>
+              <option value="Other">Other</option>
+            </select>
             {selectedReason === "Other" && (
               <div>
                 <textarea
-                  className="w-full text-red-400 border"
+                  className="w-full p-2 mt-2 border rounded-md"
                   placeholder="Please give a reason"
                   value={customReason}
                   onChange={(e) => setCustomReason(e.target.value)}
                 ></textarea>
               </div>
             )}
-            <p className="text-xl">
-              Are you sure you want to reject this order?
-            </p>
+            Are you sure
             <div className="flex justify-center mt-4">
               <button
-                className="bg-green-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
+                className="bg-green-500 p-2 m-2 rounded-lg shadow-lg"
                 onClick={handleClosePopup}
               >
                 Yes
               </button>
               <button
-                className="bg-red-500 p-2 m-2 rounded-lg overflow-hidden shadow-lg"
+                className="bg-red-500 p-2 m-2 rounded-lg shadow-lg"
                 onClick={() => setShowPopup(false)}
               >
                 No

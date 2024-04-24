@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const RejectedOrder = ({ orderdata }) => {
   return (
     <div>
       <div className="flex justify-center justify-between">
         <h2 className="text-xl m-2 font-bold mb-4">Rejected Orders</h2>
         <Link to="/neworder" className="text-xl m-2 font-bold mb-4">
-          Back
+        <FontAwesomeIcon icon={faBackward} size="lg" style={{color: "#000000",}} />
+
         </Link>
         <SearchBar />
       </div>

@@ -3,13 +3,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const DeliverOrder = ({ orderdata }) => {
   return (
     <>
      <div className="flex justify-center justify-between">
         <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
         <Link to="/pendingorder" className="text-xl m-2 font-bold mb-4">
-          Back
+        <FontAwesomeIcon icon={faBackward} size="lg" style={{color: "#000000",}} />
+
         </Link>
         </div>
         <SearchBar />

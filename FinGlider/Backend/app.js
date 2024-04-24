@@ -12,7 +12,7 @@ const cors = require('cors');
 require ("dotenv").config();
 
 
-const app = express();
+const app = express(); 
 const port =process.env.PORT;
 
 
@@ -53,7 +53,7 @@ app.listen(port,()=>{
 
 
 app.use(auth); 
-app.use("/api/otp",otpRoutes);
+app.use("/api/otp",otpRoutes); 
 app.use("/api/menu",menuRoutes);
 app.use("/api/Cart",cartRoutes);
 app.use("/api/restaurent",RestaurentInfoRoutes);
