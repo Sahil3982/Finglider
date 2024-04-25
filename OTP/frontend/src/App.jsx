@@ -18,7 +18,7 @@ function App() {
   const [newOrders, setNewOrders] = useState(
     data.filter((order) => order.status === "Processing")
   );
-  const [orderdata, setOrderdata] = useState(data);
+  const [orderdata, setOrderdata] = useState(data); 
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleNext = () => {

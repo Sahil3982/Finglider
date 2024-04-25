@@ -4,6 +4,7 @@ import SearchBar from "../Components/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackward } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -63,15 +64,15 @@ const NewOrder = ({ orderdata, onAccept }) => {
               <div
                 onClick={() => toggleAccordion(index)} // Added onClick event to toggleAccordion
                 className="cursor-pointer "
-                aria-placeholder=" kmvknvnekn"
+                placeholder=" kmvknvnekn"
               >
-               <FontAwesomeIcon
-                      icon={faUser}
-                      style={{ color: "#000000" }}
-                      className="size-4 pr-2"
-                    />
-                    <span className="font-bold">{customerName}</span>
-                    <br />
+                <FontAwesomeIcon
+                  icon={faUser}
+                  style={{ color: "#000000" }}
+                  className="size-4 pr-2"
+                />
+                <span className="font-bold">{customerName}</span>
+                <br />
                 <span className="font-bold">ORDER ID: </span>
                 {OrderID}
                 <br />
@@ -82,9 +83,15 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 <span className="text-yellow-500">{status}</span>
                 <br />
                 {/* Content to be displayed when accordion is expanded */}
+                <span className="">
+                  <FontAwesomeIcon
+                    icon={faCaretUp}
+                    flip="vertical"
+                    style={{ color: "#000000" }}
+                  />
+                </span>
                 {expandedIndex === index && (
                   <div>
-                   
                     <span className="font-bold"> Products : </span>
                     {items}
                     <br />
@@ -108,14 +115,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
                   >
                     Reject
                   </button>
-                  <Link to={`/viewdetails/${id}`}>
-                    {/* <button
-                      onMouseOver={() => console.log("Hover")}
-                      className="bg-gray-500 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                    >
-                      View
-                    </button> */}
-                  </Link>
+                 
                 </div>
               </div>
             </div>
