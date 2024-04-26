@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBackward,
+  faUser,
+  faCaretUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [rejectedOrderId, setRejectedOrderId] = useState(null);
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
-  const [expandedIndex, setExpandedIndex] = useState(null); // Moved the state for accordion outside Accordion component
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleAccordion = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
@@ -37,12 +39,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
       <div className="flex justify-center justify-between align-center">
         <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
         <SearchBar />
-
-        <Link
-          to="/dashboard"
-          className="text-xl m-2 font-bold mb-4"
-          value="Back"
-        >
+        <Link to="/dashboard" className="text-xl m-2 font-bold mb-4">
           <FontAwesomeIcon
             icon={faBackward}
             size="lg"
@@ -53,18 +50,26 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
       {orderdata.map(
         (
-          { customerName, id, status, items, date, OrderID, address },
-          index // Added index as the second parameter
+          {
+            customerName,
+            id,
+            status,
+            items,
+            date,
+            OrderID,
+            address,
+            TotalAmount,
+          },
+          index
         ) =>
           status === "Processing" && (
             <div
               key={id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg px-3 py-1 mb-2 mx-4 flex  items-center justify-between"
+              className="bg-white rounded-lg overflow-hidden shadow-lg px-3 py-1 mb-2 mx-4   items-center justify-between"
             >
               <div
-                onClick={() => toggleAccordion(index)} // Added onClick event to toggleAccordion
-                className="cursor-pointer "
-                placeholder=" kmvknvnekn"
+                onClick={() => toggleAccordion(index)}
+                className="cursor-pointer"
               >
                 <FontAwesomeIcon
                   icon={faUser}
@@ -74,7 +79,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 <span className="font-bold">{customerName}</span>
                 <br />
                 <span className="font-bold">ORDER ID: </span>
-                {OrderID}
+                <span className="text-red-900">{OrderID}</span>
                 <br />
                 <span className="font-bold">DATE : </span>
                 {date}
@@ -82,41 +87,63 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 <span className="font-bold text">STATUS :</span>{" "}
                 <span className="text-yellow-500">{status}</span>
                 <br />
-                {/* Content to be displayed when accordion is expanded */}
-                <span className="">
+                <span className=" ml-24 ">
                   <FontAwesomeIcon
                     icon={faCaretUp}
-                    flip="vertical"
                     style={{ color: "#000000" }}
                   />
                 </span>
                 {expandedIndex === index && (
                   <div>
                     <span className="font-bold"> Products : </span>
-                    {items}
+                    {items.map((data, index) => (
+                      <div key={index}>
+                        {" "}
+                        {/* Added key prop */}
+                        <table className="border-solid border-4 ml-4 p-4 ">
+                       {
+                        items.length === 3 &&
+                        <tr>
+                            <td>S.No.</td>
+                            <td>S.No.</td>
+                            <td>S.No.</td>
+                            <td>S.No.</td>
+                          </tr>
+                       }
+                          <tr>
+                          <th>{data.sno}</th>
+                          
+                            <th>{data.dish}</th>
+                            <th>{data.category}</th>
+
+                            <th>{data.price}</th>
+                          </tr>
+                          
+                        </table>
+                      </div>
+                    ))}
                     <br />
-                    <span className="font-bold"> Delivery Address :</span>{" "}
-                    {address}
+                    <span className="font-bold"> Customer Address :</span>{" "}
+                    <span className="text-green-900"> {address}</span>
                     <br />
-                    <span className="font-bold"> Total :</span>
-                    {status}
+                    <span className="font-bold"> Total Amount : </span>
+                    <span className="">{TotalAmount}</span>
                   </div>
                 )}
-                <div className="">
-                  <button
-                    className="bg-green-600  p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                    onClick={() => handleAccept(id)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="bg-red-600 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
-                    onClick={() => handleReject(id)}
-                  >
-                    Reject
-                  </button>
-                 
-                </div>
+              </div>
+              <div className="">
+                <button
+                  className="bg-green-600  p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                  onClick={() => handleAccept(id)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="bg-red-600 p-2 m-2 px-5 rounded-lg overflow-hidden shadow-lg"
+                  onClick={() => handleReject(id)}
+                >
+                  Reject
+                </button>
               </div>
             </div>
           )
@@ -125,7 +152,6 @@ const NewOrder = ({ orderdata, onAccept }) => {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded">
-            {/* Radio buttons and other content for the rejection popup */}
             <select
               className="w-full p-2 border rounded-md"
               value={selectedReason}
