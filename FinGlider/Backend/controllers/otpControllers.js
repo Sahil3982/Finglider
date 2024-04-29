@@ -1,7 +1,7 @@
-const OTP = require('../models/otp');
-const { createError } = require('../middleware/error');
-const twilio = require('twilio');
-const jwt = require('jsonwebtoken');
+const OTP = require("../models/otp");
+const { createError } = require("../middleware/error");
+const twilio = require("twilio");
+const jwt = require("jsonwebtoken");
 
 // Configure Twilio client
 const twilioClient = twilio(
@@ -12,7 +12,7 @@ const twilioClient = twilio(
 module.exports.create_no = async (req, res, next) => {
   const { phoneNumber } = req.body;
   const otp = generateNumericOTP(4); // Generate numeric-only OTP
-  console.log(phoneNumber);
+  // console.log(phoneNumber);
 
   try {
     // Save OTP to database

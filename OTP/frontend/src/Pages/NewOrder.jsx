@@ -1,8 +1,13 @@
+/* eslint-disable react/prop-types */
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward, faUser, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBackward,
+  faUser,
+  faCaretUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -11,8 +16,9 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const [customReason, setCustomReason] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [toggleBtnVisible, setToggleBtnVisible] = useState(true); // State for toggle button visibility
-
-  let totalPrice = useRef(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const totalPrice = useRef(0);
 
   const toggleAccordion = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
@@ -37,11 +43,21 @@ const NewOrder = ({ orderdata, onAccept }) => {
     setToggleBtnVisible(false); // Hide toggle button when clicked
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = orderdata.filter((order) =>
+      order.customerName.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredOrders(filtered);
+  };
+
+  const ordersToRender = searchQuery ? filteredOrders : orderdata;
+
   return (
     <>
       <div className="flex justify-center justify-between align-center">
         <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2>
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
         <Link to="/dashboard" className="text-xl m-2 font-bold mb-4">
           <FontAwesomeIcon
             icon={faBackward}
@@ -51,7 +67,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
         </Link>
       </div>
 
-      {orderdata.map(
+      {ordersToRender.map(
         (
           {
             customerName,
@@ -104,33 +120,40 @@ const NewOrder = ({ orderdata, onAccept }) => {
                     <span className="font-bold"> Products : </span>
                     {items.map((data, index) => (
                       <div key={index}>
-                        <table className="border-double border-2 rounded-sm">
-                          {items.length === 2 && (
-                            <tr>
-                              <td>S.No.</td>
-                              <td>Dish Name</td>
-                              <td>Category</td>
-                              <td>Price</td>
-                            </tr>
+                        <table className=" border-collapse border border-gray-400 rounded-md">
+                          {index === 0 && ( // Render table header only for the first item
+                            <thead>
+                              <tr className="bg-gray-200 border-b">
+                                <th className="p-1">S.No.</th>
+                                <th className="p-1">Dish Name</th>
+                                <th className="p-1">Category</th>
+                                <th className="p-1">Price</th>
+                              </tr>
+                            </thead>
                           )}
-                          <tr>
-                            <th>{data.sno}</th>
-                            <th>{data.dish}</th>
-                            <th>{data.category}</th>
-                            <th>{data.price}</th>
-                          </tr>
+                          <tbody>
+                            <tr className="border-b border-gray-300">
+                              <td className="p-1">{data.sno}</td>
+                              <td className="p-1">{data.dish}</td>
+                              <td className="p-1">{data.category}</td>
+                              <td className="p-1">{data.price}</td>
+                            </tr>
+                          </tbody>
                         </table>
-                        <div className="font-bold">
-                          Total Price: {(totalPrice.current += Number(data.price))}
-                        </div>
                       </div>
                     ))}
+
+                    <div className="font-bold">
+                      Total Price:{" "}
+                      {items.reduce(
+                        (total, item) => total + Number(item.price),
+                        0
+                      )}
+                    </div>
                     <br />
-                    <span className="font-bold"> Customer Address :</span>{" "}
-                    <span className="text-green-900"> {address}</span>
+                    <span className="font-bold"> Customer Address :</span>
+                    <span className="text-green-700"> {address}</span>
                     <br />
-                    <span className="font-bold"> Total Amount : </span>
-                    <span className="">{TotalAmount}</span>
                   </div>
                 )}
               </div>

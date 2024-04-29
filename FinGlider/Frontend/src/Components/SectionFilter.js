@@ -1,29 +1,27 @@
-import React from 'react'
-import {MenuList} from './menu'
-import SectionItem from './SectionItem';
-import Slider from 'react-slick';
+import React from "react";
+import { MenuList } from "./menu";
+import SectionItem from "./SectionItem";
+import Slider from "react-slick";
 function SectionFilter() {
-
-const sectionMenu=MenuList;
-const settings = {
+  const sectionMenu = MenuList;
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,//automatically set
-    slidesToScroll: 4
+    slidesToShow: 4, //automatically set
+    slidesToScroll: 4,
   };
   return (
     <div class="container">
-    <div class="cat-slider">
-    <Slider {...settings}>
-    {
-            sectionMenu.map((Item,index) => (
+      <div class="cat-slider">
+        <Slider {...settings}>
+          {sectionMenu.map((Item, index) => (
             <SectionItem SectionItem={Item} />
-            ))}
-            </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
-</div>
-  )
+  );
 }
 
-export default SectionFilter
+export default SectionFilter;
