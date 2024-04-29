@@ -6,19 +6,19 @@ const orders = [
     items: [
       {
         sno: 1,
-        dish: "Bhongi",
+        dish: "Dish4",
         price: 100,
         category: "A",
       },
       {
         sno: 2,
-        dish: "Bhongi",
+        dish: "Dish1",
         price: 100,
         category: "A",
       },
       {
         sno: 3,
-        dish: "Bhongi",
+        dish: "Dish2",
         price: 100,
         category: "A",
       },

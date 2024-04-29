@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBackward,
-  faUser,
-  faCaretUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBackward, faUser, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -14,6 +10,9 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const [selectedReason, setSelectedReason] = useState("");
   const [customReason, setCustomReason] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [toggleBtnVisible, setToggleBtnVisible] = useState(true); // State for toggle button visibility
+
+  let totalPrice = useRef(0);
 
   const toggleAccordion = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
@@ -32,6 +31,10 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
   const handleAccept = (id) => {
     onAccept(id);
+  };
+
+  const handleToggleClick = () => {
+    setToggleBtnVisible(false); // Hide toggle button when clicked
   };
 
   return (
@@ -71,11 +74,14 @@ const NewOrder = ({ orderdata, onAccept }) => {
                 onClick={() => toggleAccordion(index)}
                 className="cursor-pointer"
               >
-                <FontAwesomeIcon
-                  icon={faUser}
-                  style={{ color: "#000000" }}
-                  className="size-4 pr-2"
-                />
+                {toggleBtnVisible && ( // Render toggle button only if it's visible
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    style={{ color: "#000000" }}
+                    className="size-4 pr-2"
+                    onClick={handleToggleClick} // Hide toggle button when clicked
+                  />
+                )}
                 <span className="font-bold">{customerName}</span>
                 <br />
                 <span className="font-bold">ORDER ID: </span>
@@ -98,28 +104,25 @@ const NewOrder = ({ orderdata, onAccept }) => {
                     <span className="font-bold"> Products : </span>
                     {items.map((data, index) => (
                       <div key={index}>
-                        {" "}
-                        {/* Added key prop */}
-                        <table className="border-solid border-4 ml-4 p-4 ">
-                       {
-                        items.length === 3 &&
-                        <tr>
-                            <td>S.No.</td>
-                            <td>S.No.</td>
-                            <td>S.No.</td>
-                            <td>S.No.</td>
-                          </tr>
-                       }
+                        <table className="border-double border-2 rounded-sm">
+                          {items.length === 2 && (
+                            <tr>
+                              <td>S.No.</td>
+                              <td>Dish Name</td>
+                              <td>Category</td>
+                              <td>Price</td>
+                            </tr>
+                          )}
                           <tr>
-                          <th>{data.sno}</th>
-                          
+                            <th>{data.sno}</th>
                             <th>{data.dish}</th>
                             <th>{data.category}</th>
-
                             <th>{data.price}</th>
                           </tr>
-                          
                         </table>
+                        <div className="font-bold">
+                          Total Price: {(totalPrice.current += Number(data.price))}
+                        </div>
                       </div>
                     ))}
                     <br />
