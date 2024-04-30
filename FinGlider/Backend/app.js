@@ -14,7 +14,7 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT;
 
-const connect = async () => {
+const connect = async () => {  
   try {
     await mongoose.connect(process.env.DB_URL);
     console.log("Connected to mongoDB.");
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  connect();
+  connect();  
   console.log(`Server Connected to port: ${port}`);
 });
 
@@ -55,7 +55,8 @@ app.use((err, req, res, next) => {
     success: false,
     status: errorStatus,
     message: errorMessage,
-    stack: err.stack,
-  });
+    stack: err.stack, 
+  }); 
 });
 app.use(requireAuth);
+     

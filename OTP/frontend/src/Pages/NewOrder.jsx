@@ -20,7 +20,9 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
   const totalPrice = useRef(0);
-
+  const handleScroll = (e) => {
+    e.stopPropagation(); // Prevent the wheel event from bubbling up
+  };
   const toggleAccordion = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
   };
@@ -164,7 +166,8 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded">
+        <div className="bg-white p-8 rounded" onWheel={handleScroll}>
+          <div className="scrollable-popup-content" style={{ maxHeight: "300px", overflowY: "auto" }}>
             <select
               className="w-full p-2 border rounded-md"
               value={selectedReason}
@@ -173,9 +176,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
               <option value="Not Available">Not Available</option>
               <option value="Delivery issues">Delivery issues</option>
               <option value="Backend issues">Backend issues</option>
-              <option value="Material not available">
-                Material not available
-              </option>
+              <option value="Material not available">Material not available</option>
               <option value="Other">Other</option>
             </select>
             {selectedReason === "Other" && (
@@ -205,6 +206,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
             </div>
           </div>
         </div>
+      </div>
       )}
     </>
   );
