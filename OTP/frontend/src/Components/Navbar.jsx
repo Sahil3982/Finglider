@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-red-500 py-4">
     <div className="max-w-7xl mx-auto px-4">
       <div className="flex justify-between">
         <div className="flex-shrink-0">
-          <Link to="/" className="text-white text-red-500 font-bold text-xl">FoodieHub</Link>
+          <Link to="/" className="text-white text-red-500 font-bold text-xl">
+          <FontAwesomeIcon icon={faArrowLeft} style={{color: "#999999",}} />
+          </Link>
         </div>
         <div className="hidden md:flex items-center">
           <Link to="/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">DashBoard</Link>

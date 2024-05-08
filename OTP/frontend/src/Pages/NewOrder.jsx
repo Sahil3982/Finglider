@@ -1,6 +1,8 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from "react";
+/* eslint-disable no-unused-vars */
+// NewOrder.jsx
+
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,33 +11,32 @@ import {
   faUser,
   faCaretUp,
 } from "@fortawesome/free-solid-svg-icons";
+import RejectPopUp from "../Components/RejectPopUp";
+import Sorting from "../Components/Sorting";
 
 const NewOrder = ({ orderdata, onAccept }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [rejectedOrderId, setRejectedOrderId] = useState(null);
-  const [selectedReason, setSelectedReason] = useState("");
-  const [customReason, setCustomReason] = useState("");
+  const [selectedOrderId, setSelectedOrderId] = useState(null); // Add state to track selected order ID
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [toggleBtnVisible, setToggleBtnVisible] = useState(true); // State for toggle button visibility
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const totalPrice = useRef(0);
+
+  const handleReject = (id) => {
+    setSelectedOrderId(id); // Set the selected order ID
+    setShowPopup(true); // Show the rejection popup
+  };
+
   const handleScroll = (e) => {
     e.stopPropagation(); // Prevent the wheel event from bubbling up
   };
+
   const toggleAccordion = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
   };
 
   const handleClosePopup = () => {
-    console.log("Selected Reason:", selectedReason);
-    console.log("Custom Reason:", customReason);
     setShowPopup(false);
-  };
-
-  const handleReject = (id) => {
-    setRejectedOrderId(id);
-    setShowPopup(true);
   };
 
   const handleAccept = (id) => {
@@ -59,15 +60,18 @@ const NewOrder = ({ orderdata, onAccept }) => {
   return (
     <>
       <div className="flex justify-center justify-between pl-4 align-center">
-        {/* <h2 className="text-xl m-2 font-bold mb-4">New Orders</h2> */}
         <SearchBar onSearch={handleSearch} />
-        <Link to="/dashboard" className="text-xl m-3 pr-2 font-bold mb-4">
-          <FontAwesomeIcon
-            icon={faBackward}
-            size="lg"
-            style={{ color: "#000000" }}
-          />
-        </Link>
+        <div className="pt-2">
+          <Sorting />
+
+          <Link to="/dashboard" className="text-xl m-2 pr-2 font-bold mb-4">
+            {/* <FontAwesomeIcon
+              icon={faBackward}
+              size="lg"
+              style={{ color: "#000000" }}
+            /> */}
+          </Link>
+        </div>
       </div>
 
       {ordersToRender.map(
@@ -90,15 +94,21 @@ const NewOrder = ({ orderdata, onAccept }) => {
               />
               <span className="font-bold">{customerName}</span>
               <br />
-              <span className="font-bold">ORDER ID: </span>
-              <span className="text-red-900">{OrderID}</span>
+              <span className="font-bold">Order ID: </span>
+              <span className="text-red-500">{OrderID}</span>
               <br />
-              <span className="font-bold">DATE : </span>
-              {date}
+              <span className="font-bold"> Order Date : </span>
+              <span className="text-purple-700">{date}</span>
               <br />
-              <span className="font-bold text">STATUS :</span>{" "}
-              <span className="text-yellow-500">{status}</span>
+              <span className="font-bold text">Order Status :</span>{" "}
+              <span className="text-blue-500">{status}</span>
               <br />
+              <div className="font-bold">
+                Total Price:{" "}
+                {Array.isArray(items)
+                  ? items.reduce((total, item) => total + Number(item.price), 0)
+                  : 0}
+              </div>
               <span className="  ">
                 {toggleBtnVisible && (
                   <FontAwesomeIcon
@@ -114,11 +124,11 @@ const NewOrder = ({ orderdata, onAccept }) => {
                   {items.map((data, index) => (
                     <div key={index}>
                       <table className="">
-                        {index === 0 && ( // Render table header only for the first item
+                        {index === 0 && (
                           <tr className="bg-gray-300 ">
                             <th className="p-1 ">S.No.</th>
                             <th className="p-1">Dish Name</th>
-                            <th className="p-1">Category</th>
+                            <th className="p-1">Quantity</th>
                             <th className="p-1">Price</th>
                           </tr>
                         )}
@@ -132,8 +142,8 @@ const NewOrder = ({ orderdata, onAccept }) => {
                     </div>
                   ))}
 
-                  <div className="font-bold">
-                    Total Price:{" "}
+                  <div className="font-bold ml-1">
+                    Total :{" "}
                     {items.reduce(
                       (total, item) => total + Number(item.price),
                       0
@@ -165,48 +175,11 @@ const NewOrder = ({ orderdata, onAccept }) => {
       )}
 
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white p-8 rounded" onWheel={handleScroll}>
-          <div className="scrollable-popup-content" style={{ maxHeight: "300px", overflowY: "auto" }}>
-            <select
-              className="w-full p-2 border rounded-md"
-              value={selectedReason}
-              onChange={(e) => setSelectedReason(e.target.value)}
-            >
-              <option value="Not Available">Not Available</option>
-              <option value="Delivery issues">Delivery issues</option>
-              <option value="Backend issues">Backend issues</option>
-              <option value="Material not available">Material not available</option>
-              <option value="Other">Other</option>
-            </select>
-            {selectedReason === "Other" && (
-              <div>
-                <textarea
-                  className="w-full p-2 mt-2 border rounded-md"
-                  placeholder="Please give a reason"
-                  value={customReason}
-                  onChange={(e) => setCustomReason(e.target.value)}
-                ></textarea>
-              </div>
-            )}
-            Are you sure
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-green-500 p-2 m-2 rounded-lg shadow-lg"
-                onClick={handleClosePopup}
-              >
-                Yes
-              </button>
-              <button
-                className="bg-red-500 p-2 m-2 rounded-lg shadow-lg"
-                onClick={() => setShowPopup(false)}
-              >
-                No
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+        <RejectPopUp
+          orderId={selectedOrderId} // Pass selected order ID to the popup
+          onClose={handleClosePopup} // Close the popup
+          onReject={handleReject} // Pass the reject handler function to the popup
+        />
       )}
     </>
   );

@@ -11,10 +11,10 @@ const twilio = require("twilio");
 const cors = require("cors");
 require("dotenv").config();
 
-const app = express();
+const app = express(); 
 const port = process.env.PORT;
 
-const connect = async () => {  
+const connect = async () => {   
   try {
     await mongoose.connect(process.env.DB_URL);
     console.log("Connected to mongoDB.");
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
   return res.status(errorStatus).json({
     success: false,
     status: errorStatus,
-    message: errorMessage,
+    message: errorMessage, 
     stack: err.stack, 
   }); 
 });

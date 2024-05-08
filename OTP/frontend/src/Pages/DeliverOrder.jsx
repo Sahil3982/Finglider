@@ -57,12 +57,17 @@ const DeliverOrder = ({ orderdata, onAccept }) => {
               onClick={() => toggleAccordion(index)}
               className="cursor-pointer"
             >
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ color: "#000000" }}
-                className="size-4 pr-2"
-              />
-              <span className="font-bold">{customerName}</span>
+              <div className="flex">
+                <div>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    style={{ color: "#000000" }}
+                    className="size-4 pr-2"
+                  />
+                  <span className="font-bold">{customerName}</span>
+                </div>
+                <div className="font-medium" >Sort</div>
+              </div>
               <br />
               <span className="font-bold">ORDER ID: </span>
               <span className="text-red-900">{OrderID}</span>

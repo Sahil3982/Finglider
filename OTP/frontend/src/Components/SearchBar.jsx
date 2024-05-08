@@ -24,9 +24,7 @@ const SearchBar = ({ onSearch }) => {
           onChange={handleChange}
           className="p-2 border border-gray-300  rounded-sm mr-2 "
         />
-        {/* <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-          Search
-        </button> */}
+       
       </form>
     </div>
   );
