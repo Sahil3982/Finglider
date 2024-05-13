@@ -86,7 +86,7 @@ function App() {
       </SearchProvider>
     </CartProvider> 
   );   
-}
+}  
  
 export default App;
    

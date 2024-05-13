@@ -10,9 +10,9 @@ const cookieParser = require("cookie-parser");
 const twilio = require("twilio");
 const cors = require("cors");
 require("dotenv").config();
-
+ 
 const app = express(); 
-const port = process.env.PORT;
+const port = process.env.PORT;  
 
 const connect = async () => {   
   try {
@@ -21,8 +21,8 @@ const connect = async () => {
   } catch (error) {
     throw error;
   }
-};
-
+}; 
+ 
 mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!");
 });

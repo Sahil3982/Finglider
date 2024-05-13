@@ -10,7 +10,7 @@ const OTPVerificationComponent = ({phoneNumber,setIsVerified,setColor,form}) => 
   
   const handleVerification = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/otp/verifyotp', {phoneNumber: phoneNumber || form.phoneNumber,  enteredOtp:enteredOTP});
+      const response = await axios.post('http://localhost:3008/api/otp/verifyotp', {phoneNumber: phoneNumber || form.phoneNumber,  enteredOtp:enteredOTP});
       console.log('ph',phoneNumber);
       if (response.data.success) {
         setVerificationStatus('verified');

@@ -51,7 +51,7 @@ function MenuSection({ handleClick,cart}) {
       });
   }   
    useEffect(()=>{
-          axios.get('http://localhost:3000/api/menu')
+          axios.get('http://localhost:3008/api/menu')
           .then((response)=>{
             console.log(response.data);
             const menus = response.data.menus || [];

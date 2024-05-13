@@ -20,7 +20,7 @@ function CartSection({size, form,setForm,phoneNumber,setPhoneNumber, pageVisible
  
     const handleNext = ()=>{
     
-        axios.post('http://localhost:3000/api/otp/getphoneno',  { phoneNumber: phoneNumber || form.phoneNumber })
+        axios.post('http://localhost:3008/api/otp/getphoneno',  { phoneNumber: phoneNumber || form.phoneNumber })
         .then(response => {
        
           if (response.data.success) {

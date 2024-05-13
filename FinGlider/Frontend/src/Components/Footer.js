@@ -7,7 +7,7 @@ function Footer({size, setCartVisible}) {
   const [RestaurantInfo ,setRestaurentInfo] = useState({});
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/api/restaurent')
+    axios.get('http://localhost:3008/api/restaurent')
     .then((response)=>{
       setRestaurentInfo(response.data.restaurants[0]);
       console.log(response.data.restaurants[0])

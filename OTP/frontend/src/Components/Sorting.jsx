@@ -8,7 +8,7 @@ const Sorting = () => {
     <div className="relative inline-block">
       <select
         id="sort-select"
-        className="appearance-none border border-gray-300 rounded-md py-2 pl-3 pr-5 text-sm leading-5 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
+        className="appearance-none border border-gray-300 rounded-md py-2 pl-3 pr-8 text-sm leading-5 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150"
       >
         <option disabled selected hidden>
           Sort By
