@@ -21,6 +21,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
   const [toggleBtnVisible, setToggleBtnVisible] = useState(true); // State for toggle button visibility
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
+  console.log(filteredOrders);
 
   const handleReject = (id) => {
     setSelectedOrderId(id); // Set the selected order ID
@@ -49,6 +50,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
+    console.log(query);
     const filtered = orderdata.filter((order) =>
       order.customerName.toLowerCase().includes(query.toLowerCase())
     );
@@ -61,6 +63,7 @@ const NewOrder = ({ orderdata, onAccept }) => {
     <>
       <div className="flex justify-center justify-between pl-4 align-center">
         <SearchBar onSearch={handleSearch} />
+
         <div className="pt-2">
           <Sorting />
 
@@ -84,7 +87,9 @@ const NewOrder = ({ orderdata, onAccept }) => {
             className="bg-white rounded-lg overflow-hidden shadow-lg px-3 py-1 mb-2 mx-4   items-center justify-between"
           >
             <div
-              onClick={() => toggleAccordion(index)}
+              onClick={() =>
+               {toggleAccordion(index)
+                handleToggleClick()}}
               className="cursor-pointer"
             >
               <FontAwesomeIcon
@@ -109,12 +114,13 @@ const NewOrder = ({ orderdata, onAccept }) => {
                   ? items.reduce((total, item) => total + Number(item.price), 0)
                   : 0}
               </div>
-              <span className="  ">
+              <span
+                className="left-8 ml-24"
+              >
                 {toggleBtnVisible && (
                   <FontAwesomeIcon
                     icon={faCaretUp}
                     style={{ color: "#000000" }}
-                    onClick={handleToggleClick} // Hide toggle button when clicked
                   />
                 )}
               </span>

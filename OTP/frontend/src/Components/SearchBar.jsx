@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
+  // console.log(searchTerm);
+
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -22,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleChange}
-          className="p-2 border border-gray-300  rounded-sm mr-2 "
+          className="p-2 border border-gray-300  rounded-sm mr-2"
         />
        
       </form>

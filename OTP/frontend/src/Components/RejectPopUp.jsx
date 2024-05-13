@@ -19,7 +19,7 @@ const RejectPopUp = ({ orderId, onClose, onReject }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 
       <div className="bg-white p-8  rounded" onWheel={handleScroll}>
-      <div className="font-bold m-2">Rejceted Popup</div>
+      <div className="font-bold font-2xl m-2">Rejcetion Popup</div>
 
         <div
           className="scrollable-popup-content"
