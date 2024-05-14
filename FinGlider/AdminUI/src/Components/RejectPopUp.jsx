@@ -22,7 +22,7 @@ const RejectPopUp = ({ orderId, onClose, onReject }) => {
       <div className="font-bold font-2xl m-2">Rejcetion Popup</div>
 
         <div
-          className="scrollable-popup-content"
+          className="scrollable-popup-content overflow-y-scroll"
           style={{ maxHeight: "300px", overflowY: "auto" }}
         >
 
